@@ -8,6 +8,21 @@ class Server < ApplicationRecord
 
   after_create :initialize_openvpn_config
 
+  def start_server
+    stdout, stderr, status = Open3.capture3("systemctl start openvpn@#{uuid}.service")
+    stdout
+  end
+
+  def stop_server
+    stdout, stderr, status = Open3.capture3("systemctl stop openvpn@#{uuid}.service")
+    stdout
+  end
+
+  def server_status
+    stdout, stderr, status = Open3.capture3("systemctl status openvpn@#{uuid}.service")
+    stdout
+  end
+
   def as_presentable_json
     {
       uuid: uuid,
