@@ -45,6 +45,11 @@ module Api
         end
       end
 
+      def clients
+        clients = @server.vpn_clients
+        render(json: clients)
+      end
+
       # POST /servers
       def create
         @server = Server.new(server_create_params)
