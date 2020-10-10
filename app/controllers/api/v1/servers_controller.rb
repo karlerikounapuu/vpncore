@@ -2,7 +2,7 @@ module Api
   module V1
     class ServersController < ApplicationController
       before_action :set_server, only: %i[show update destroy]
-      before_action :set_server_by_uuid, only: %i[start stop add_client]
+      before_action :set_server_by_uuid, only: %i[start stop add_client clients]
 
       # GET /servers
       def index
