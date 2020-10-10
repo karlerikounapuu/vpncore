@@ -2,7 +2,7 @@ module Api
   module V1
     class ServersController < ApplicationController
       before_action :set_server, only: %i[show update destroy]
-      before_action :set_server_by_uuid, only: %i[start stop]
+      before_action :set_server_by_uuid, only: %i[start stop add_client]
 
       # GET /servers
       def index
@@ -33,6 +33,16 @@ module Api
         @server.reload
 
         render(json: {uuid: @server.uuid, status: @server.server_status})
+      end
+
+      def add_client
+        client = @server.vpn_clients.new(ident: client_params[:ident])
+
+        if client.save
+          render(json: {uuid: client.uuid, ovpn: "#{client.client_work_dir}/#{client.uuid}.ovpn"})
+        else
+          render(json: client.errors, status: :unprocessable_entity)
+        end
       end
 
       # POST /servers
@@ -78,6 +88,11 @@ module Api
       # Only allow a trusted parameter "white list" through.
       def server_params
         params.require(:server).permit(:name)
+      end
+
+      def client_params
+        params.require(:client).require(:ident)
+        params.require(:client).permit(:ident)
       end
     end
   end

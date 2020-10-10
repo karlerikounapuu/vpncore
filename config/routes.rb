@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         collection do
           put ':id/start', to: 'servers#start'
           put ':id/stop', to: 'servers#stop'
+          post ':id/clients', to: 'servers#add_client'
         end
       end
     end

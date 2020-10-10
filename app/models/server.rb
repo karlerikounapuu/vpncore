@@ -9,6 +9,7 @@ class Server < ApplicationRecord
   after_destroy :destroy_assigned_configurations
 
   after_create :initialize_openvpn_config
+  after_create :create_primary_openvpn_client
 
   def start_server
     stdout, stderr, status = Open3.capture3("systemctl start openvpn@#{uuid}.service")
@@ -70,6 +71,11 @@ class Server < ApplicationRecord
 
     %x(`rm #{ENV['openvpn_base_path']}/#{uuid}.conf`)
     Rails.logger.info("Deleted server init file #{ENV['openvpn_base_path']}/#{uuid}.conf")
+  end
+
+  def create_primary_openvpn_client
+    client = vpn_clients.new(ident: initiator)
+    client.save
   end
 
   def initialize_openvpn_config
