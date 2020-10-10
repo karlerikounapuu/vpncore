@@ -1,18 +1,26 @@
 module Api
   module V1
     class ServersController < ApplicationController
-      before_action :set_server, only: %i[show update destroy]
-      before_action :set_server_by_uuid, only: %i[start stop add_client clients]
+      before_action :set_server_by_uuid, only: %i[show update destroy start stop add_client clients]
 
       # GET /servers
       def index
-        @servers = Server.all
-        servers = []
-        @servers.each do |s|
-          servers << s.as_presentable_json
-        end
+        if params[:ident].present?
+          clients = VpnClient.where(ident: params[:ident])
+          @servers = []
+          clients.each do |c|
+            server_obj = {
+              uuid: c.server.uuid,
+              name: c.name
+            }
 
-        render(json: servers)
+            @servers << server_obj unless @servers.include? server_obj
+          end
+          render(json: @servers)
+        else
+          @servers = Server.all
+          render(json: servers)
+        end
       end
 
       # GET /servers/1
