@@ -12,12 +12,12 @@ class Server < ApplicationRecord
 
   def start_server
     stdout, stderr, status = Open3.capture3("systemctl start openvpn@#{uuid}.service")
-    stdout
+    server_status
   end
 
   def stop_server
     stdout, stderr, status = Open3.capture3("systemctl stop openvpn@#{uuid}.service")
-    stdout
+    server_status
   end
 
   def server_status
