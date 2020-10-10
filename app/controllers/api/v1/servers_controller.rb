@@ -1,7 +1,7 @@
 module Api
   module V1
     class ServersController < ApplicationController
-      before_action :set_server, only: %i[show update destroy]
+      before_action :set_server, only: %i[show update destroy start stop]
 
       # GET /servers
       def index
@@ -16,7 +16,22 @@ module Api
 
       # GET /servers/1
       def show
-        render(json: @server)
+        render(json: s.as_presentable_json)
+      end
+
+      def start
+        @server.start_server
+        @server.reload
+
+        render(json: {uuid: @server.uuid, status: @server.server_status})
+
+      end
+
+      def stop
+        @server.stop_server
+        @server.reload
+
+        render(json: {uuid: @server.uuid, status: @server.server_status})
       end
 
       # POST /servers

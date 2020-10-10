@@ -33,7 +33,7 @@ class Server < ApplicationRecord
     {
       uuid: uuid,
       name: name,
-      state: 'INITIALIZED',
+      state: server_status,
       initiator: '0a2115fd616d1a956403c16df4ba6f27',
       clients: clients_as_presentable_json,
       connector: {
@@ -64,6 +64,7 @@ class Server < ApplicationRecord
   end
 
   def destroy_assigned_configurations
+    stop_server
     %x(`rm -rf #{server_work_dir}`)
     Rails.logger.info("Deleted configuration from #{server_work_dir}")
 
