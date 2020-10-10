@@ -30,12 +30,16 @@ class Server < ApplicationRecord
     return 'error'
   end
 
+  def initiator_client
+    vpn_clients.find_by(ident: initiator)
+  end
+
   def as_presentable_json
     {
       uuid: uuid,
       name: name,
       state: server_status,
-      initiator: '0a2115fd616d1a956403c16df4ba6f27',
+      initiator: initiator_client.present ? initiator_client : nil,
       clients: clients_as_presentable_json,
       connector: {
         hostname: ENV['server_addr'],
