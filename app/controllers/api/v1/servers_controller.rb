@@ -1,7 +1,8 @@
 module Api
   module V1
     class ServersController < ApplicationController
-      before_action :set_server, only: %i[show update destroy start stop]
+      before_action :set_server, only: %i[show update destroy]
+      before_action :set_server_by_uuid, only: %i[start stop]
 
       # GET /servers
       def index
@@ -64,6 +65,10 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_server
         @server = Server.find(params[:id])
+      end
+
+      def set_server_by_uuid
+        @server = Server.find_by!(uuid: params[:id])
       end
 
       def server_create_params
