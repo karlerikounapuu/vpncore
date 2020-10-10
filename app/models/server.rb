@@ -22,9 +22,9 @@ class Server < ApplicationRecord
 
   def server_status
     stdout, stderr, status = Open3.capture3("systemctl status openvpn@#{uuid}.service")
-    return 'running' if stdout.contains? 'active (running)'
-    return 'stopped' if stdout.contains? 'inactive (dead)'
-    return 'reloading' if stdout.contains? 'activating (auto-restart)'
+    return 'running' if stdout.include? 'active (running)'
+    return 'stopped' if stdout.include? 'inactive (dead)'
+    return 'reloading' if stdout.include? 'activating (auto-restart)'
 
     return 'error'
   end
