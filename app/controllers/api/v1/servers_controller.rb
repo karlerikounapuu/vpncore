@@ -19,7 +19,7 @@ module Api
           render(json: @servers)
         else
           @servers = Server.all
-          render(json: servers)
+          render(json: @servers)
         end
       end
 
