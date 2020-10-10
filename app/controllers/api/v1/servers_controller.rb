@@ -9,7 +9,7 @@ module Api
           clients = VpnClient.where(ident: params[:ident])
           @servers = []
           clients.each do |c|
-            @servers << c.server unless @servers.include? c.server
+            @servers << c.server.as_presentable_json unless @servers.include? c.server.as_presentable_json
           end
           render(json: @servers)
         else
