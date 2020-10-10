@@ -11,6 +11,7 @@ class VpnClient < ApplicationRecord
     create_client_work_dir
     generate_client_keys
     initialize_client_keys
+    generate_ovpn_file
   end
 
   def generate_ovpn_file
