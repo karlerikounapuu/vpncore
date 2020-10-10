@@ -17,7 +17,7 @@ class VpnClient < ApplicationRecord
   def generate_ovpn_file
     Dir.chdir(client_work_dir) do
       config_file = "#{uuid}.ovpn"
-      File.open(config_file, 'a') do |f|
+      File.open("#{client_work_dir}/#{config_file}", 'w+') do |f|
         f.puts 'client'
         f.puts 'dev tun'
         f.puts 'proto udp'
