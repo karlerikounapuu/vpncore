@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           put ':id/start', to: 'servers#start'
           put ':id/stop', to: 'servers#stop'
           post ':id/clients', to: 'servers#add_client'
+          get ':id/clients', to: 'servers#clients'
         end
       end
     end
