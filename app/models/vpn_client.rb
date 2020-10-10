@@ -66,6 +66,10 @@ class VpnClient < ApplicationRecord
     %x(`mkdir #{client_work_dir}`)
   end
 
+  def ovpn_file_path
+    "#{client_work_dir}/#{uuid}.ovpn"
+  end
+
   def client_work_dir
     server_work_dir = server.server_work_dir
     "#{server_work_dir}/clients/#{uuid}"

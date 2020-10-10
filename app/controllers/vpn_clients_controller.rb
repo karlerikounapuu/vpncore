@@ -1,11 +1,15 @@
 class VpnClientsController < ApplicationController
-  before_action :set_vpn_client, only: [:show, :update, :destroy]
+  before_action :set_vpn_client, only: [:show, :update, :destroy, :download_ovpn_config]
 
   # GET /vpn_clients
   def index
     @vpn_clients = VpnClient.all
 
     render json: @vpn_clients
+  end
+
+  def download_ovpn_config
+    send_file(@vpn_client.ovpn_file_path)
   end
 
   # GET /vpn_clients/1

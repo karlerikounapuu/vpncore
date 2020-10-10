@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   resources :vpn_clients
   namespace :api do
     namespace :v1 do
+      resources :vpn_clients do
+        collection do
+          get ':id/download_ovpn_config', to: 'vpn_clients#download_ovpn_config'
+        end
+      end
+
       resources :servers do
         collection do
           put ':id/start', to: 'servers#start'
