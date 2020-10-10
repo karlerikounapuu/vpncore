@@ -20,7 +20,7 @@ module Api
 
       # GET /servers/1
       def show
-        render(json: s.as_presentable_json)
+        render(json: @server.as_presentable_json)
       end
 
       def start
