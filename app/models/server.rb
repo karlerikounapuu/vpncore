@@ -39,7 +39,7 @@ class Server < ApplicationRecord
       uuid: uuid,
       name: name,
       state: server_status,
-      initiator: initiator_client.present ? initiator_client : nil,
+      initiator: initiator_client.present? ? initiator_client : nil,
       clients: clients_as_presentable_json,
       connector: {
         hostname: ENV['server_addr'],
