@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_10_090248) do
+ActiveRecord::Schema.define(version: 2020_10_10_143805) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "servers", force: :cascade do |t|
     t.string "name"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_10_10_090248) do
     t.integer "ovpn_port"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "initiator"
+    t.string "initiator"
   end
 
   create_table "vpn_clients", force: :cascade do |t|
