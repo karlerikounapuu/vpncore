@@ -10,6 +10,11 @@ class Server < ApplicationRecord
 
   after_create :initialize_openvpn_config
   after_create :create_primary_openvpn_client
+  after_create :create_fw_rules
+
+  def create_fw_rules
+    %x(`iptables -t nat -A POSTROUTING -s #{ip_addr}/24 -o eth0 -j MASQUERADE`)
+  end
 
   def start_server
     stdout, stderr, status = Open3.capture3("systemctl start openvpn@#{uuid}.service")
