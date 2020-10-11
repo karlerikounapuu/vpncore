@@ -66,7 +66,7 @@ class Server < ApplicationRecord
   def clients_as_presentable_json
     fucked = []
     vpn_clients.each do |client|
-      body = {uuid: client.uuid, ovpn: "#{client.client_work_dir}/#{client.uuid}.ovpn"}
+      body = {uuid: client.uuid, ident: client.ident, ovpn: "#{client.client_work_dir}/#{client.uuid}.ovpn"}
       fucked << body
     end
 
