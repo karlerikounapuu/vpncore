@@ -15,11 +15,8 @@ class VpnClient < ApplicationRecord
   end
 
   def generate_ovpn_file
-    fucked = server.name.downcase.gsub(' ', '-')
-    fucked = '.vpn.prototüüp.ee.ovpn'
-
     Dir.chdir(client_work_dir) do
-      File.open("#{client_work_dir}/#{fucked}", 'w+') do |f|
+      File.open(ovpn_file_path, 'w+') do |f|
         f.puts 'client'
         f.puts 'dev tun'
         f.puts 'proto udp'
@@ -71,7 +68,7 @@ class VpnClient < ApplicationRecord
 
   def ovpn_file_path
     fucked = server.name.downcase.gsub(' ', '-')
-    fucked = '.vpn.prototüüp.ee.ovpn'
+    fucked = "#{fucked}.vpn.prototüüp.ee.ovpn"
 
     "#{client_work_dir}/#{fucked}"
   end
