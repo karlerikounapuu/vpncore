@@ -47,12 +47,3 @@ Stop openvVPN server
 
 ### GET api/v1/vpn_users/1/download_ovpn_profile
 Download VPN client .ovpn profile
-
-You'll 
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# vpncore
