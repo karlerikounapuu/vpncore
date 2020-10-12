@@ -17,7 +17,7 @@ Manage (CRUD) OpenVPN servers / clients over REST API. This POC project was crea
 - Run rails s to start the project at http://localhost:3000
 
 ## Runnings tests
-What tests?
+![What tests](https://media.tenor.com/images/0b947c56571f6ab0cf219b763ec8fb0d/tenor.gif)
 
 ## API map
 
